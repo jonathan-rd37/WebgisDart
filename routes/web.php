@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.post');
 
-Route::get('/admin', [AdminController::class, 'index'])->middleware(AdminMiddleware::class)->name('admin.index');;
+Route::get('/admin', [AdminController::class, 'index'])->middleware(AdminMiddleware::class)->name('admin.index');
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     // Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/add-disaster', [AdminController::class, 'addDisaster'])->name('addDisaster');
-    Route::get('/admin/edit-aids', [AdminController::class, 'editAids'])->name('editAids');
     Route::get('/admin/delete-disaster', [AdminController::class, 'deleteDisaster'])->name('deleteDisaster');
     Route::post('/admin/add-disaster', [DisasterController::class, 'store'])->name('disaster.store');
-    Route::put('/admin/edit-aids', [AdminController::class, 'updateAid'])->name('aid.update');
+    Route::get('/admin/add-aids', [AdminController::class, 'addAids'])->name('addAids');
+    Route::post('/admin/store-aids', [AdminController::class, 'storeAids'])->name('storeAids');
 });
 
 Route::post('/logout', function () {
@@ -50,5 +50,10 @@ Route::get('/map', function () {
 
 Route::get('/api/disasters', [DisasterController::class, 'getDisasters']);
 Route::delete('/disaster/{id}', [DisasterController::class, 'destroy'])->name('disaster.destroy');
+
+Route::get('/disaster/{id}', [DisasterController::class, 'showDetail'])->name('disaster.detail');
+
+// Add this route to show aids for a disaster/location
+Route::get('/disaster/{id}/aids', [DisasterController::class, 'showAids'])->name('disaster.aids');
 
 require __DIR__.'/auth.php';

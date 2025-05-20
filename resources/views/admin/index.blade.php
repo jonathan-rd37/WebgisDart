@@ -41,7 +41,7 @@
       <div class="flex flex-col gap-4">
         <a href="{{ route('addDisaster') }}" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-white font-bold text-base text-center transition-transform transform hover:scale-105 shadow-md">➕ Add Disaster</a>
         <a href="{{ route('deleteDisaster') }}" class="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-xl text-white font-bold text-base text-center transition-transform transform hover:scale-105 shadow-md">🗑️ Delete Disaster</a>
-        <a href="{{ route('editAids') }}" class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl text-white font-bold text-base text-center transition-transform transform hover:scale-105 shadow-md">✏️ Edit Aids</a>
+        <a href="{{ route('addAids') }}" class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl text-white font-bold text-base text-center transition-transform transform hover:scale-105 shadow-md">✏️ Add Aids</a>
       </div>
 
       <!-- Tombol logout kecil di pojok kanan bawah -->

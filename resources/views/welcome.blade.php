@@ -145,6 +145,9 @@
         marker.on('mouseout', function(e) {
             this.closePopup();
         });
+        marker.on('click', function(e) {
+            window.location.href = `/disaster/${location.id}/aids`;
+        });
     });
 
     </script>

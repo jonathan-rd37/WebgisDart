@@ -102,4 +102,14 @@ class DisasterController extends Controller
 
         return ['lat' => null, 'lon' => null]; // Jika tidak ditemukan
     }
+
+    /**
+     * Show all aids for a specific disaster/location.
+     */
+    public function showAids($id)
+    {
+        $disaster = Disaster::findOrFail($id);
+        $aids = \App\Models\Aid::where('disaster_id', $id)->get();
+        return view('disasters.aids', compact('disaster', 'aids'));
+    }
 }

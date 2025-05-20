@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreDisasterRequest;
 use App\Models\Disaster;
+use App\Models\Aid;
+use App\Models\MailService;
 
 class AdminController extends Controller
 {
@@ -46,10 +48,6 @@ class AdminController extends Controller
         return view('admin.add-disaster'); // Render the Add Disaster page
     }
 
-    public function editAids()
-    {
-        return view('admin.edit-aids'); // Render the Edit Aids page
-    }
 
     public function storeDisaster(StoreDisasterRequest $request)
     {
@@ -78,4 +76,37 @@ class AdminController extends Controller
         $disasters = Disaster::all(); // Fetch all disasters
         return view('admin.delete-disaster', compact('disasters'));
     }
+
+    public function addAids()
+    {
+        $disasters = \App\Models\Disaster::all();
+        $mailServices = MailService::all();
+        return view('admin.add-aids', compact('disasters', 'mailServices'));
+    }
+
+    public function storeAids(Request $request)
+    {
+        $request->validate([
+            'disaster_id' => 'required|exists:disasters,id',
+            'item_name' => 'required|string|max:255',
+            'quantity' => 'required|integer|min:1',
+            'sender_name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:32',
+            'tracking_number' => 'required|string|max:255',
+            'mail_service_id' => 'required|exists:mail_services,id',
+        ]);
+
+        Aid::create([
+            'disaster_id' => $request->disaster_id,
+            'item_name' => $request->item_name,
+            'quantity' => $request->quantity,
+            'sender_name' => $request->sender_name,
+            'phone_number' => $request->phone_number,
+            'tracking_number' => $request->tracking_number,
+            'mail_service_id' => $request->mail_service_id,
+        ]);
+
+        return redirect()->route('addAids')->with('success', 'Aid added successfully.');
+    }
+
 }
